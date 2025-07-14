@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Is TMS Right for Me? - HealMed Clinic</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .slogan {
+            font-size: 1.2em;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .progress-bar {
+            background: #ecf0f1;
+            height: 8px;
+            border-radius: 4px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #3498db, #2ecc71);
+            height: 100%;
+            transition: width 0.3s ease;
+            border-radius: 4px;
+        }
+
+        .question-container {
+            margin-bottom: 30px;
+        }
+
+        .question {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        .options {
+            display: grid;
+            gap: 15px;
+        }
+
+        .option {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            padding: 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .option:hover {
+            background: #e3f2fd;
+            border-color: #3498db;
+            transform: translateY(-2px);
+        }
+
+        .option.selected {
+            background: linear-gradient(135deg, #3498db, #2ecc71);
+            color: white;
+            border-color: #2980b9;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3498db, #2ecc71);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+
+        .btn-secondary {
+            background: #95a5a6;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #7f8c8d;
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .result-container {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .result-title {
+            font-size: 2.2em;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        .result-description {
+            font-size: 1.2em;
+            line-height: 1.6;
+            color: #34495e;
+            margin-bottom: 30px;
+        }
+
+        .contact-info {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            border-left: 5px solid #3498db;
+        }
+
+        .contact-info h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .contact-info p {
+            margin-bottom: 10px;
+            color: #34495e;
+        }
+
+        .link-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            margin: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .link-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+        }
+
+        .stage-1 { border-left-color: #f39c12; }
+        .stage-2 { border-left-color: #e67e22; }
+        .stage-3 { border-left-color: #27ae60; }
+
+        .hidden {
+            display: none;
+        }
+
+        .intro-text {
+            font-size: 1.1em;
+            color: #34495e;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        .restart-btn {
+            background: linear-gradient(135deg, #95a5a6, #7f8c8d);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 20px;
+        }
+
+        .restart-btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .articles-section {
+            background: #ecf0f1;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+
+        .articles-section h4 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .articles-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .articles-section li {
+            background: white;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+        }
+
+        .articles-section li:last-child {
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">HealMed Clinic</div>
+            <div class="slogan">Let's Heal Minds!</div>
+        </div>
+
+        <div class="content">
+            <div id="quiz-container">
+                <div class="intro-text">
+                    <strong>Discover if TMS therapy could be right for you!</strong><br>
+                    This comprehensive assessment will evaluate your eligibility for Transcranial Magnetic Stimulation (TMS) therapy based on current clinical guidelines and your personal health profile.
+                </div>
+
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+
+                <div class="question-container">
+                    <div class="question" id="question-text"></div>
+                    <div class="options" id="options-container"></div>
+                </div>
+
+                <div class="buttons">
+                    <button class="btn btn-secondary" id="prev-btn" onclick="previousQuestion()">Previous</button>
+                    <button class="btn btn-primary" id="next-btn" onclick="nextQuestion()" disabled>Next</button>
+                </div>
+            </div>
+
+            <div id="result-container" class="result-container hidden">
+                <div class="result-title" id="result-title"></div>
+                <div class="result-description" id="result-description"></div>
+                <div class="contact-info" id="contact-info"></div>
+                <button class="restart-btn" onclick="restartQuiz()">Take Quiz Again</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "Have you been diagnosed with any of the following conditions?",
+                options: [
+                    { text: "Major Depressive Disorder", value: "depression", score: 3 },
+                    { text: "Treatment-Resistant Depression", value: "trd", score: 5 },
+                    { text: "Obsessive-Compulsive Disorder (OCD)", value: "ocd", score: 4 },
+                    { text: "Anxiety Disorders", value: "anxiety", score: 2 },
+                    { text: "PTSD", value: "ptsd", score: 3 },
+                    { text: "I'm not sure about my specific diagnosis", value: "unsure", score: 0 }
+                ]
+            },
+            {
+                question: "How many different antidepressant medications have you tried?",
+                options: [
+                    { text: "None", value: "none", score: 0 },
+                    { text: "1 medication", value: "one", score: 1 },
+                    { text: "2 medications from different classes", value: "two", score: 3 },
+                    { text: "3 or more medications", value: "three_plus", score: 5 },
+                    { text: "I'm not sure", value: "unsure", score: 0 }
+                ]
+            },
+            {
+                question: "For how long did you take each medication at the maximum tolerated dose?",
+                options: [
+                    { text: "Less than 4 weeks", value: "short", score: 1 },
+                    { text: "4-6 weeks", value: "medium", score: 3 },
+                    { text: "6-12 weeks or longer", value: "long", score: 5 },
+                    { text: "I haven't taken antidepressants", value: "none", score: 0 },
+                    { text: "I'm not sure", value: "unsure", score: 0 }
+                ]
+            },
+            {
+                question: "How would you rate the severity of your current symptoms?",
+                options: [
+                    { text: "Mild - symptoms are manageable", value: "mild", score: 1 },
+                    { text: "Moderate - symptoms interfere with daily life", value: "moderate", score: 3 },
+                    { text: "Severe - symptoms significantly impact functioning", value: "severe", score: 5 },
+                    { text: "I'm currently symptom-free", value: "none", score: 0 }
+                ]
+            },
+            {
+                question: "Have you experienced any of the following?",
+                options: [
+                    { text: "Inability to work or maintain relationships due to symptoms", value: "functional_impairment", score: 4 },
+                    { text: "Hospitalizations related to mental health", value: "hospitalizations", score: 5 },
+                    { text: "Suicidal thoughts or behaviors", value: "suicidal", score: 5 },
+                    { text: "Chronic pain or migraines alongside mood symptoms", value: "chronic_pain", score: 3 },
+                    { text: "None of the above", value: "none", score: 0 }
+                ]
+            },
+            {
+                question: "How long have you been experiencing mental health symptoms?",
+                options: [
+                    { text: "Less than 6 months", value: "short", score: 1 },
+                    { text: "6 months to 2 years", value: "medium", score: 3 },
+                    { text: "2-5 years", value: "long", score: 4 },
+                    { text: "More than 5 years", value: "chronic", score: 5 }
+                ]
+            },
+            {
+                question: "Are you currently receiving or have you received psychotherapy?",
+                options: [
+                    { text: "Yes, currently in therapy and it's somewhat helpful", value: "current_helpful", score: 2 },
+                    { text: "Yes, but therapy alone hasn't been sufficient", value: "current_insufficient", score: 4 },
+                    { text: "I've tried therapy but it didn't help", value: "tried_no_help", score: 4 },
+                    { text: "No, I haven't tried therapy", value: "no_therapy", score: 1 }
+                ]
+            },
+            {
+                question: "Do you have any of the following conditions or devices?",
+                options: [
+                    { text: "Implanted metallic devices in or around the head", value: "metal_implants", score: -10 },
+                    { text: "History of seizures or epilepsy", value: "seizures", score: -8 },
+                    { text: "Cochlear implants", value: "cochlear", score: -10 },
+                    { text: "Increased intracranial pressure", value: "pressure", score: -8 },
+                    { text: "None of the above", value: "none", score: 0 }
+                ]
+            },
+            {
+                question: "Are you currently pregnant or breastfeeding?",
+                options: [
+                    { text: "Yes, I am pregnant", value: "pregnant", score: -5 },
+                    { text: "Yes, I am breastfeeding", value: "breastfeeding", score: -3 },
+                    { text: "No", value: "no", score: 0 },
+                    { text: "Not applicable", value: "na", score: 0 }
+                ]
+            },
+            {
+                question: "What is your age?",
+                options: [
+                    { text: "Under 18", value: "under18", score: -2 },
+                    { text: "18-25", value: "young_adult", score: 3 },
+                    { text: "26-65", value: "adult", score: 5 },
+                    { text: "Over 65", value: "senior", score: 4 }
+                ]
+            }
+        ];
+
+        let currentQuestion = 0;
+        let answers = [];
+        let totalScore = 0;
+
+        function displayQuestion() {
+            const question = questions[currentQuestion];
+            document.getElementById('question-text').textContent = question.question;
+            
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const optionElement = document.createElement('div');
+                optionElement.className = 'option';
+                optionElement.textContent = option.text;
+                optionElement.onclick = () => selectOption(index);
+                optionsContainer.appendChild(optionElement);
+            });
+            
+            updateProgress();
+            updateButtons();
+        }
+
+        function selectOption(index) {
+            const options = document.querySelectorAll('.option');
+            options.forEach(option => option.classList.remove('selected'));
+            options[index].classList.add('selected');
+            
+            answers[currentQuestion] = {
+                questionIndex: currentQuestion,
+                optionIndex: index,
+                value: questions[currentQuestion].options[index].value,
+                score: questions[currentQuestion].options[index].score
+            };
+            
+            // Handle "unsure" diagnosis response
+            if (currentQuestion === 0 && questions[currentQuestion].options[index].value === 'unsure') {
+                showDiagnosisRedirect();
+                return;
+            }
+            
+            document.getElementById('next-btn').disabled = false;
+        }
+
+        function showDiagnosisRedirect() {
+            const resultContainer = document.getElementById('result-container');
+            const quizContainer = document.getElementById('quiz-container');
+            
+            document.getElementById('result-title').textContent = 'Let\'s Get You Properly Assessed First!';
+            document.getElementById('result-description').innerHTML = 
+                '<p>Since you\'re unsure about your specific diagnosis, we recommend taking our comprehensive mental health assessments first. This will help us better understand your condition and provide more accurate guidance about TMS therapy suitability.</p>' +
+                '<p>Please visit our patient portal to complete the mental health exams, then return to retake this TMS quiz with more specific information about your condition.</p>';
+            
+            document.getElementById('contact-info').innerHTML = 
+                '<h3>Next Steps:</h3>' +
+                '<p>1. Click the link below to access our patient portal</p>' +
+                '<p>2. Go to the "Quick Access" section</p>' +
+                '<p>3. Complete the "Mental Health Exams"</p>' +
+                '<p>4. Return here to retake the TMS quiz</p>' +
+                '<a href="https://healmedclinic.github.io/patient-portal/" class="link-button" target="_blank">Access Patient Portal</a>';
+            
+            quizContainer.classList.add('hidden');
+            resultContainer.classList.remove('hidden');
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                displayQuestion();
+            } else {
+                calculateResult();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                displayQuestion();
+                
+                // Restore previous selection
+                if (answers[currentQuestion]) {
+                    const options = document.querySelectorAll('.option');
+                    options[answers[currentQuestion].optionIndex].classList.add('selected');
+                    document.getElementById('next-btn').disabled = false;
+                }
+            }
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestion + 1) / questions.length) * 100;
+            document.getElementById('progress-fill').style.width = progress + '%';
+        }
+
+        function updateButtons() {
+            document.getElementById('prev-btn').disabled = currentQuestion === 0;
+            document.getElementById('next-btn').disabled = !answers[currentQuestion];
+        }
+
+        function calculateResult() {
+            totalScore = answers.reduce((sum, answer) => sum + answer.score, 0);
+            
+            const resultContainer = document.getElementById('result-container');
+            const quizContainer = document.getElementById('quiz-container');
+            
+            let stage, title, description, contactInfo;
+            
+            if (totalScore < 0) {
+                // Contraindications present
+                stage = 1;
+                title = "TMS May Not Be Suitable at This Time";
+                description = 'Based on your responses, there may be contraindications that make TMS therapy unsuitable for you currently. However, this doesn\'t mean you\'re out of options for effective mental health treatment.';
+                contactInfo = 
+                    '<div class="contact-info stage-1">' +
+                        '<h3>Contact HealMed Clinic</h3>' +
+                        '<p><strong>Phone:</strong> 732-508-2136</p>' +
+                        '<p><strong>Email:</strong> info@healmed.org</p>' +
+                        '<p><strong>Address:</strong> 28 Briar Hill Drive (Plaza 9), Suite 1, Manalapan, NJ 07726</p>' +
+                        '<p>Dr. Nidhi Goel and our team can discuss alternative treatment options that may be more suitable for your specific situation.</p>' +
+                        '<a href="https://healmedclinic.github.io/patient-portal/" class="link-button" target="_blank">Contact Us for Consultation</a>' +
+                    '</div>';
+            } else if (totalScore >= 0 && totalScore <= 15) {
+                // Stage 1
+                stage = 1;
+                title = "TMS Can Be a Plausible Fit";
+                description = 'Based on your responses, TMS therapy could potentially be beneficial for you. While you may not meet all the typical criteria for treatment-resistant depression, TMS has shown promise for various mental health conditions.';
+                contactInfo = 
+                    '<div class="contact-info stage-1">' +
+                        '<h3>Learn More About TMS</h3>' +
+                        '<div class="articles-section">' +
+                            '<h4>Helpful Resources:</h4>' +
+                            '<ul>' +
+                                '<li>TMS has been FDA-approved for depression since 2008 and continues to show efficacy in clinical trials</li>' +
+                                '<li>Research shows TMS can be effective for anxiety disorders, OCD, and PTSD</li>' +
+                                '<li>TMS is covered by most insurance plans for qualifying conditions</li>' +
+                                '<li>The procedure is non-invasive with minimal side effects</li>' +
+                            '</ul>' +
+                        '</div>' +
+                        '<h3>Contact HealMed Clinic for Detailed Assessment</h3>' +
+                        '<p><strong>Phone:</strong> 732-508-2136</p>' +
+                        '<p><strong>Email:</strong> info@healmed.org</p>' +
+                        '<p><strong>Address:</strong> 28 Briar Hill Drive (Plaza 9), Suite 1, Manalapan, NJ 07726</p>' +
+                        '<a href="https://healmedclinic.github.io/patient-portal/" class="link-button" target="_blank">Schedule Consultation</a>' +
+                    '</div>';
+            } else if (totalScore >= 16 && totalScore <= 25) {
+                // Stage 2
+                stage = 2;
+                title = "You Might Really Benefit from TMS Therapy!";
+                description = 'Your responses suggest you could be a good candidate for TMS therapy. You show several indicators that align with successful TMS treatment outcomes, including treatment history and symptom severity that typically respond well to TMS.';
+                contactInfo = 
+                    '<div class="contact-info stage-2">' +
+                        '<h3>Book a General Consultation with Dr. Nidhi Goel</h3>' +
+                        '<p>Dr. Goel is a double board-certified Adult, Geriatric & Interventional Psychiatrist specializing in TMS therapy.</p>' +
+                        '<p><strong>Phone:</strong> 732-508-2136</p>' +
+                        '<p><strong>Email:</strong> info@healmed.org</p>' +
+                        '<p><strong>Address:</strong> 28 Briar Hill Drive (Plaza 9), Suite 1, Manalapan, NJ 07726</p>' +
+                        '<p>During your consultation, Dr. Goel will conduct a comprehensive evaluation to determine if TMS is the right treatment approach for your specific needs.</p>' +
+                        '<a href="https://healmedclinic.github.io/patient-portal/" class="link-button" target="_blank">Book Consultation Now</a>' +
+                    '</div>';
+            } else {
+                // Stage 3
+                stage = 3;
+                title = "You're the Perfect Candidate for TMS Therapy!";
+                description = 'Excellent news! Based on your responses, you meet the clinical criteria that typically indicate strong candidacy for TMS therapy. Your treatment history, symptom severity, and duration align perfectly with what we see in successful TMS patients.';
+                contactInfo = 
+                    '<div class="contact-info stage-3">' +
+                        '<h3>Ready to Start Your TMS Journey?</h3>' +
+                        '<p>Contact HealMed Clinic today to book your first appointment and begin your path to recovery with TMS therapy.</p>' +
+                        '<p><strong>Phone:</strong> 732-508-2136</p>' +
+                        '<p><strong>Email:</strong> info@healmed.org</p>' +
+                        '<p><strong>Address:</strong> 28 Briar Hill Drive (Plaza 9), Suite 1, Manalapan, NJ 07726</p>' +
+                        '<p><strong>Dr. Nidhi Goel</strong> - Double Board Certified Adult, Geriatric & Interventional Psychiatrist</p>' +
+                        '<p>Our team will guide you through the entire process, from insurance verification to treatment planning and ongoing support.</p>' +
+                        '<a href="https://healmedclinic.github.io/patient-portal/" class="link-button" target="_blank">Book Your First Appointment</a>' +
+                    '</div>';
+            }
+            
+            document.getElementById('result-title').textContent = title;
+            document.getElementById('result-description').innerHTML = description;
+            document.getElementById('contact-info').innerHTML = contactInfo;
+            
+            quizContainer.classList.add('hidden');
+            resultContainer.classList.remove('hidden');
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            answers = [];
+            totalScore = 0;
+            
+            document.getElementById('quiz-container').classList.remove('hidden');
+            document.getElementById('result-container').classList.add('hidden');
+            
+            displayQuestion();
+        }
+
+        // Initialize quiz
+        displayQuestion();
+    </script>
+</body>
+</html>
